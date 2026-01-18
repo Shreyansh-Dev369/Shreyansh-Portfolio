@@ -1,140 +1,124 @@
 # 🚀 Shreyansh Portfolio
+---
 
-Welcome to my personal portfolio project! This repository contains the source code for my live portfolio website, showcasing my skills, projects, and experience as a developer.
+🌐 Shreyansh Tripathi — Developer Portfolio
 
-🌐 **Live Website:** [https://portfolio-crafted.vercel.app/#/](https://portfolio-crafted.vercel.app/#/)
+🚀 Live Portfolio: https://shreyansh-dev.vercel.app
+
+A modern, high-performance developer portfolio website built to showcase my projects, technical skills, and professional journey as a Computer Science undergraduate and aspiring Software Development Engineer (SDE).
+
+The application is designed with scalability, clean UI, and real-world tooling in mind.
+
 
 ---
 
-## 📌 About the Project
+✨ Key Highlights
 
-This portfolio is built to:
+⚡ Fast, responsive, and accessible UI
 
-* Present my projects and technical skills
-* Share my background and experience
-* Provide an easy way to contact me
+🎨 Modern component-driven design using shadcn/ui
 
-The site is fast, responsive, and deployed using modern frontend tooling.
+🧑‍💻 Well-structured sections: About, Skills, Projects, Contact
 
----
+🔐 Backend integration using Supabase
 
-## 🛠 Tech Stack
+🌍 Deployed on Vercel with optimized builds
 
-This project is built using:
+📱 Mobile-first and cross-browser compatible
 
-* ⚡ **Vite** – Fast build tool
-* ⚛️ **React** – UI library
-* 🟦 **TypeScript** – Type-safe JavaScript
-* 🎨 **Tailwind CSS** – Utility-first CSS framework
-* 🧩 **shadcn/ui** – Reusable UI components
-* ☁️ **Vercel** – Hosting & deployment
+
 
 ---
 
-## 📂 Project Structure
+🛠 Tech Stack
 
-```
-Portfolio-Crafted/
-├── public/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── assets/
-│   ├── App.tsx
-│   └── main.tsx
-├── package.json
-├── tailwind.config.js
-├── tsconfig.json
-├── vite.config.ts
-└── README.md
-```
+Frontend
+
+React — Component-based UI development
+
+Vite — Lightning-fast build tool and dev server
+
+Tailwind CSS — Utility-first styling for rapid UI development
+
+shadcn/ui — Accessible, reusable UI components
+
+
+Backend / Services
+
+Supabase — Authentication, database, and backend services
+
+
+Deployment
+
+Vercel — CI/CD and global edge deployment
+
+
 
 ---
 
-## 🚀 Getting Started (Run Locally)
+📂 Application Structure
 
-### Prerequisites
+Home – Professional introduction and focus area
 
-* Node.js (v18 or later recommended)
-* npm
+About Me – Background, interests, and career goals
 
-### Steps
+Skills – Technologies, tools, and frameworks
 
-```bash
+Projects – Selected projects demonstrating real-world problem solving
+
+Contact – Integrated contact and social links
+
+
+
+---
+
+🚀 Local Development Setup
+
 # Clone the repository
-git clone https://github.com/Shreyansh-Dev369/Portfolio-Crafted.git
+git clone https://github.com/Shreyansh-Dev369/your-repo-name.git
 
-# Navigate to the project folder
-cd Portfolio-Crafted
+# Navigate to the project directory
+cd your-repo-name
 
 # Install dependencies
 npm install
 
 # Start the development server
 npm run dev
-```
 
-The app will run at:
-
-```
-http://localhost:5173
-```
 
 ---
 
-## 🌍 Deployment
+🎯 Purpose & Vision
 
-This project is automatically deployed using **Vercel**.
+This portfolio is built to:
 
-### How deployment works
+Act as a central professional identity for recruiters
 
-* Push or merge code into the `main` branch
-* Vercel automatically builds and deploys the site
-* The production site updates instantly
+Demonstrate industry-relevant frontend and backend skills
 
-### Production URL
+Reflect my readiness for SDE roles at product-based companies
 
-```
-https://portfolio-crafted.vercel.app/#/
-```
 
-(Custom domain support is available and can be connected via Vercel settings.)
 
 ---
 
-## 🔁 Updating the Portfolio
+📬 Connect With Me
 
-To update the live site:
+🌐 Portfolio: https://shreyansh-dev.vercel.app
 
-```bash
-git add .
-git commit -m "Update portfolio"
-git push origin main
-```
+🐙 GitHub: https://github.com/Shreyansh-Dev369
 
----
+💼 LinkedIn: https://www.linkedin.com/in/shreyansh369
 
-## 🤝 Contributing
 
-Contributions are welcome!
-
-1. Fork the repository
-2. Create a new branch (`feature/your-feature`)
-3. Commit your changes
-4. Open a Pull Request
-
-Please keep changes clean and well-documented.
 
 ---
 
-## 📬 Contact
+⭐ Feedback & Support
 
-Feel free to reach out to me:
+If you find this portfolio useful, consider giving the repository a ⭐ star.
+Feedback, suggestions, and collaboration opportunities are always welcome.
 
-* **GitHub:** [https://github.com/Shreyansh-Dev369](https://github.com/Shreyansh-Dev369)
-* **Portfolio:** [https://portfolio-crafted.vercel.app/#/](https://portfolio-crafted.vercel.app/#/)
 
 ---
-
-⭐ If you like this project, consider giving it a star!
-
