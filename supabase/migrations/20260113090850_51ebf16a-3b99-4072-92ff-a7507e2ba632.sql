@@ -1,5 +1,5 @@
--- Create contact_submissions table for storing form submissions
-CREATE TABLE public.contact_submissions (
+-- Create Contacts table for storing form submissions
+CREATE TABLE public.Contacts (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
   email TEXT NOT NULL,
@@ -8,16 +8,16 @@ CREATE TABLE public.contact_submissions (
 );
 
 -- Enable Row Level Security
-ALTER TABLE public.contact_submissions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.Contacts ENABLE ROW LEVEL SECURITY;
 
 -- Create policy to allow anyone to insert (public contact form)
 CREATE POLICY "Anyone can submit contact form"
-ON public.contact_submissions
+ON public.Contacts
 FOR INSERT
 WITH CHECK (true);
 
 -- Create policy for reading (only for authenticated admin users if needed later)
 CREATE POLICY "Authenticated users can view submissions"
-ON public.contact_submissions
+ON public.Contacts
 FOR SELECT
 USING (true);

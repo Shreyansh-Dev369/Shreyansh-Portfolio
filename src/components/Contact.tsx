@@ -229,52 +229,62 @@ const Contact: React.FC = () => {
                 className="skill-card space-y-5"
                 noValidate
               >
-                {["name", "email", "message"].map((field) => {
-                  const isTextarea = field === "message";
-                  const value = formData[field as keyof typeof formData];
-                  return (
-                    <div key={field} className="relative group">
-                      <label
-                        htmlFor={field}
-                        className="mb-2 block text-sm font-medium text-foreground"
-                      >
-                        {field.charAt(0).toUpperCase() + field.slice(1)}
-                      </label>
-                      {isTextarea ? (
-                        <textarea
-                          id={field}
-                          rows={4}
-                          value={value}
-                          onChange={handleChange}
-                          placeholder={`Your ${field}...`}
-                          className={`w-full resize-none rounded-lg border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 ${
-                            value
-                              ? "caret-transparent placeholder-opacity-30"
-                              : "caret-primary placeholder-opacity-100"
-                          }`}
-                        />
-                      ) : (
-                        <input
-                          id={field}
-                          type={field === "email" ? "email" : "text"}
-                          value={value}
-                          onChange={handleChange}
-                          placeholder={`Your ${field}`}
-                          className={`w-full rounded-lg border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground placeholder-opacity-100 focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 ${
-                            value
-                              ? "caret-transparent placeholder-opacity-30"
-                              : "caret-primary placeholder-opacity-100"
-                          }`}
-                        />
-                      )}
-                      {errors[field] && (
-                        <p className="mt-1 text-sm text-destructive">
-                          {errors[field]}
-                        </p>
-                      )}
-                    </div>
-                  );
-                })}
+               {["name", "email", "message"].map((field) => {
+  const isTextarea = field === "message";
+  const value = formData[field as keyof typeof formData];
+
+  return (
+    <div key={field} className="relative group">
+      <label
+        htmlFor={field}
+        className="mb-2 block text-sm font-medium text-foreground"
+      >
+        {field.charAt(0).toUpperCase() + field.slice(1)}
+      </label>
+
+      {isTextarea ? (
+        <textarea
+          id={field}
+          rows={4}
+          value={value}
+          onChange={handleChange}
+          placeholder={`Your ${field}...`}
+          className={`w-full resize-none rounded-lg border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-300 focus:outline-none focus:ring-2 ${
+            errors[field]
+              ? "border-destructive focus:ring-destructive/20"
+              : "border-border focus:ring-primary/20"
+          } ${
+            value
+              ? "caret-transparent placeholder-opacity-30"
+              : "caret-primary placeholder-opacity-100"
+          }`}
+        />
+      ) : (
+        <input
+          id={field}
+          type={field === "email" ? "email" : "text"}
+          value={value}
+          onChange={handleChange}
+          placeholder={`Your ${field}`}
+          className={`w-full rounded-lg border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-300 focus:outline-none focus:ring-2 ${
+            errors[field]
+              ? "border-destructive focus:ring-destructive/20"
+              : "border-border focus:ring-primary/20"
+          } ${
+            value
+              ? "caret-transparent placeholder-opacity-30"
+              : "caret-primary placeholder-opacity-100"
+          }`}
+        />
+      )}
+
+      {errors[field] && (
+        <p className="mt-1 text-sm text-destructive">{errors[field]}</p>
+      )}
+    </div>
+  );
+})}
+
 
                 <motion.button
                   type="submit"

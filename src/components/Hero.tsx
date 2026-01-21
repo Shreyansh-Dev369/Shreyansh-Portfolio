@@ -8,6 +8,7 @@ const Hero = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
+
   const [scrollOpacity, setScrollOpacity] = useState(0);
   const [scrollYShift, setScrollYShift] = useState(0);
 
@@ -16,19 +17,38 @@ const Hero = () => {
       gsap.fromTo(
         titleRef.current,
         { opacity: 0, y: 80, skewY: 3 },
-        { opacity: 1, y: 0, skewY: 0, duration: 1.2, ease: "power4.out", delay: 0.3 }
+        {
+          opacity: 1,
+          y: 0,
+          skewY: 0,
+          duration: 1.2,
+          ease: "power4.out",
+          delay: 0.3,
+        }
       );
 
       gsap.fromTo(
         subtitleRef.current,
         { opacity: 0, x: -50 },
-        { opacity: 1, x: 0, duration: 1, ease: "power3.out", delay: 0.6 }
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          ease: "power3.out",
+          delay: 0.6,
+        }
       );
 
       gsap.fromTo(
         descRef.current,
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.9 }
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          delay: 0.9,
+        }
       );
 
       gsap.to(".hero-orb-1", {
@@ -49,12 +69,12 @@ const Hero = () => {
         ease: "sine.inOut",
       });
 
-      // Scroll indicator fade-in after social icons animation
+      // Scroll indicator appears AFTER social icons
       gsap.to(".scroll-indicator", {
         opacity: 1,
         y: 0,
-        duration: 1.0,
-        delay: 2.2, // social icons finish
+        duration: 1,
+        delay: 2.2,
         ease: "power2.out",
       });
     }, heroRef);
@@ -62,13 +82,14 @@ const Hero = () => {
     return () => ctx.revert();
   }, []);
 
-  // Handle fade on scroll
+  // Fade scroll indicator on scroll
   useEffect(() => {
     const handleScroll = () => {
       const aboutSection = document.getElementById("about");
       if (!aboutSection) return;
 
-      const heroHeight = heroRef.current?.offsetHeight || window.innerHeight;
+      const heroHeight =
+        heroRef.current?.offsetHeight || window.innerHeight;
       const aboutTop = aboutSection.getBoundingClientRect().top;
 
       const opacity = Math.max(0, Math.min(1, aboutTop / heroHeight));
@@ -100,9 +121,21 @@ const Hero = () => {
   };
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com/Shreyansh-Dev369", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com/in/shreyansh369", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:dev.shreyansh369@gmail.com", label: "Email" },
+    {
+      icon: Github,
+      href: "https://github.com/Shreyansh-Dev369",
+      label: "GitHub",
+    },
+    {
+      icon: Linkedin,
+      href: "https://linkedin.com/in/shreyansh369",
+      label: "LinkedIn",
+    },
+    {
+      icon: Mail,
+      href: "mailto:dev.shreyansh369@gmail.com",
+      label: "Email",
+    },
   ];
 
   return (
@@ -138,13 +171,6 @@ const Hero = () => {
             <span className="relative z-10 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Shreyansh Tripathi
             </span>
-            <motion.span
-              className="absolute -inset-1 -z-10 block rounded-lg bg-primary/10"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 1.2, duration: 0.5 }}
-              style={{ transformOrigin: "left" }}
-            />
           </span>
         </h1>
 
@@ -221,7 +247,7 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* SCROLL INDICATOR – initially hidden, fades in after icons */}
+      {/* Scroll Indicator */}
       <motion.div
         className="scroll-indicator absolute bottom-8 left-[48.5%] -translate-x-1/2"
         style={{ opacity: scrollOpacity, y: scrollYShift }}
