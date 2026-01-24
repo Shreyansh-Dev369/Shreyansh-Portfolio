@@ -313,12 +313,24 @@
       box-shadow: 0 0 40px hsl(var(--primary) / 0.5);
     }
   }
+  /* Hide text caret while input is focused */
+.no-caret {
+  caret-color: transparent;
+}
+
+/* Optional: smoother placeholder look */
+.no-caret::placeholder {
+  opacity: 0.9;
+}
+
 
   /* Stagger children */
   .stagger-children > * {
     opacity: 0;
     animation: fadeUp 0.5s ease-out forwards;
   }
+  /* Hide text caret while input is focused */
+
 
   .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
   .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
