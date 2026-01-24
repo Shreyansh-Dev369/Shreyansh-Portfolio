@@ -21,8 +21,9 @@
     --popover-foreground: 220 20% 10%;
 
     /* Primary: Emerald Green */
-    --primary: 152 60% 40%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 72% 51%;
+    --accent: 0 72% 51%;
+    --primary-foreground: 0 72% 51%;
     --primary-glow: 152 70% 50%;
 
     /* Secondary: Soft slate */
