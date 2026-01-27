@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { name: "Home", id: "home" },
@@ -14,21 +13,22 @@ const Header = () => {
   const [active, setActive] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
 
-  /* ================= Logo Motion ================= */
-  const logoX = useMotionValue(0);
-  const logoY = useMotionValue(0);
-  const rX = useSpring(logoY, { stiffness: 120, damping: 18 });
-  const rY = useSpring(logoX, { stiffness: 120, damping: 18 });
+  /* ================= LOGO MOTION ================= */
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-  const handleLogoMove = (e) => {
+  const rotateX = useSpring(y, { stiffness: 120, damping: 18 });
+  const rotateY = useSpring(x, { stiffness: 120, damping: 18 });
+
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    logoX.set(x * 8);
-    logoY.set(y * -8);
+    const dx = (e.clientX - rect.left) / rect.width - 0.5;
+    const dy = (e.clientY - rect.top) / rect.height - 0.5;
+    x.set(dx * 10);
+    y.set(dy * -10);
   };
 
-  /* ================= Active Section ================= */
+  /* ================= SCROLL ACTIVE ================= */
   useEffect(() => {
     const onScroll = () => {
       setIsScrolled(window.scrollY > 40);
@@ -55,103 +55,83 @@ const Header = () => {
         fixed top-0 left-0 right-0 z-50
         bg-background/70 backdrop-blur-xl
         border-b border-border/40
-        pl-1 pr-6
-        flex items-center justify-between
+        px-8
+        flex items-center
       "
     >
-      {/* ================= LOGO (BIG + MORE LEFT) ================= */}
+      {/* ================= LOGO ================= */}
       <motion.div
+        className="flex items-center justify-center"
+        style={{ perspective: 1000 }}
+        onMouseMove={handleMove}
+        onMouseLeave={() => {
+          x.set(0);
+          y.set(0);
+        }}
         animate={{ scale: isScrolled ? 0.9 : 1 }}
         transition={{ duration: 0.3 }}
-        className="
-          w-[112px] h-[112px]
-          md:w-[128px] md:h-[128px]
-          flex items-center justify-center
-          -ml-2 md:-ml-4
-        "
-        style={{ perspective: 1000 }}
-        onMouseMove={handleLogoMove}
-        onMouseLeave={() => {
-          logoX.set(0);
-          logoY.set(0);
-        }}
       >
         <motion.img
           src="shreyansh.png"
           alt="Logo"
           draggable={false}
-          style={{
-            rotateX: rX,
-            rotateY: rY,
-          }}
+          style={{ rotateX, rotateY }}
           animate={{
-            boxShadow: [
-              `0 0 28px rgba(var(--accent-glow), 0.4)`,
-              `0 0 52px rgba(var(--accent-glow), 0.75)`,
-              `0 0 28px rgba(var(--accent-glow), 0.4)`,
+            y: [0, -6, 0],
+            filter: [
+              "drop-shadow(0 0 20px rgba(255,0,0,0.4))",
+              "drop-shadow(0 0 40px rgba(255,0,0,0.8))",
+              "drop-shadow(0 0 20px rgba(255,0,0,0.4))",
             ],
-            y: [0, -3, 0],
           }}
           transition={{
-            boxShadow: { duration: 4, repeat: Infinity, ease: "easeInOut" },
             y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+            filter: { duration: 4, repeat: Infinity, ease: "easeInOut" },
           }}
-          className="w-full h-full object-contain rounded-2xl select-none"
+          className="
+            w-16 h-16 md:w-20 md:h-20
+            object-contain
+            select-none
+            pointer-events-none
+            bg-transparent
+          "
         />
       </motion.div>
 
-      {/* ================= NAV ================= */}
-      <nav className="flex items-center gap-10">
+      {/* ================= NAV (RIGHT ALIGNED) ================= */}
+      <nav className="ml-auto flex items-center">
         <ul className="flex gap-10">
-          {navLinks.map((link, i) => {
-            const x = useMotionValue(0);
-            const y = useMotionValue(0);
-
-            return (
-              <motion.li
-                key={link.id}
-                initial={{ opacity: 0, y: -12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + i * 0.08 }}
-                onMouseMove={(e) => {
-                  const r = e.currentTarget.getBoundingClientRect();
-                  x.set((e.clientX - r.left - r.width / 2) * 0.15);
-                  y.set((e.clientY - r.top - r.height / 2) * 0.15);
-                }}
-                onMouseLeave={() => {
-                  x.set(0);
-                  y.set(0);
-                }}
-                style={{ x, y }}
+          {navLinks.map((link, i) => (
+            <motion.li
+              key={link.id}
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + i * 0.08 }}
+            >
+              <a
+                href={`#${link.id}`}
+                className={`relative text-sm font-medium transition-colors ${
+                  active === link.id
+                    ? "text-primary"
+                    : "text-muted-foreground"
+                }`}
               >
-                <a
-                  href={`#${link.id}`}
-                  className={`relative text-sm font-medium transition-colors ${
-                    active === link.id
-                      ? "text-primary"
-                      : "text-muted-foreground"
-                  }`}
-                >
-                  {link.name}
+                {link.name}
 
-                  {active === link.id && (
-                    <motion.span
-                      layoutId="nav-underline"
-                      className="
-                        absolute -bottom-2 left-0 h-[2px] w-full
-                        bg-primary rounded-full
-                      "
-                    />
-                  )}
-                </a>
-              </motion.li>
-            );
-          })}
+                {active === link.id && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="
+                      absolute -bottom-2 left-0
+                      h-[2px] w-full
+                      bg-primary rounded-full
+                    "
+                  />
+                )}
+              </a>
+            </motion.li>
+          ))}
         </ul>
-
-        <div className="ml-6">
-          <ThemeToggle />
-        </div>
       </nav>
     </motion.header>
   );

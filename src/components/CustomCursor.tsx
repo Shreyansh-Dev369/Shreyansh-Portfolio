@@ -1,11 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
-const CustomCursor = () => {
+interface CustomCursorProps {
+  disableOnInputs?: boolean; // optional, default true
+}
+
+const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
+
   const [isHovering, setIsHovering] = useState(false);
+  const [isHidden, setIsHidden] = useState(false); // hide cursor over inputs or editable
 
   const springConfig = { damping: 20, stiffness: 300 };
   const cursorXSpring = useSpring(cursorX, springConfig);
@@ -19,16 +25,41 @@ const CustomCursor = () => {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
+
+      // Hide custom cursor over input, textarea, or contenteditable to see default caret
       if (
-        target.closest(
-          'a, button, [role="button"], input, textarea, select'
-        )
+        disableOnInputs &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable)
       ) {
+        setIsHidden(true);
+        return;
+      }
+
+      // Buttons / links hover effect
+      if (target.closest('a, button, [role="button"]')) {
         setIsHovering(true);
+      } else {
+        setIsHovering(false);
       }
     };
 
-    const handleMouseOut = () => setIsHovering(false);
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+
+      // Restore cursor after leaving input/textarea/contenteditable
+      if (
+        disableOnInputs &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable)
+      ) {
+        setIsHidden(false);
+      }
+
+      setIsHovering(false);
+    };
 
     window.addEventListener("mousemove", moveCursor);
     document.addEventListener("mouseover", handleMouseOver);
@@ -39,10 +70,12 @@ const CustomCursor = () => {
       document.removeEventListener("mouseover", handleMouseOver);
       document.removeEventListener("mouseout", handleMouseOut);
     };
-  }, [cursorX, cursorY]);
+  }, [cursorX, cursorY, disableOnInputs]);
 
   const safeHSL = (variable: string, fallback: string) =>
     `hsl(var(${variable}, ${fallback}))`;
+
+  if (isHidden) return null; // hide custom cursor when editing anywhere
 
   return (
     <>
@@ -111,7 +144,7 @@ const CustomCursor = () => {
             transition={{ duration: 0.8, repeat: Infinity }}
           />
 
-          {/* Eyes – FIXED (no cx animation) */}
+          {/* Eyes */}
           <motion.circle
             cx={20}
             cy={17}
@@ -134,7 +167,14 @@ const CustomCursor = () => {
             animate={{ y: [-1, 1, -1] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           >
-            <rect x={18} y={5} width={2} height={6} rx={1} fill={safeHSL("--muted-foreground", "0,0%,50%")} />
+            <rect
+              x={18}
+              y={5}
+              width={2}
+              height={6}
+              rx={1}
+              fill={safeHSL("--muted-foreground", "0,0%,50%")}
+            />
             <motion.circle
               cx={19}
               cy={4}
@@ -143,7 +183,14 @@ const CustomCursor = () => {
               animate={{ scale: [1, 1.3, 1], opacity: [1, 0.6, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
             />
-            <rect x={28} y={5} width={2} height={6} rx={1} fill={safeHSL("--muted-foreground", "0,0%,50%")} />
+            <rect
+              x={28}
+              y={5}
+              width={2}
+              height={6}
+              rx={1}
+              fill={safeHSL("--muted-foreground", "0,0%,50%")}
+            />
             <motion.circle
               cx={29}
               cy={4}

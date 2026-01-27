@@ -3,7 +3,6 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 export default defineConfig({
-  base: "/Portfolio-Crafted/", // REQUIRED for GitHub Pages
   plugins: [react()],
   resolve: {
     alias: {
@@ -11,7 +10,11 @@ export default defineConfig({
     },
   },
   server: {
-    host: "::",
-    port: 8080,
+    port: 5173,
+    open: true,
+  },
+  build: {
+    outDir: "dist",
+    sourcemap: false,
   },
 });

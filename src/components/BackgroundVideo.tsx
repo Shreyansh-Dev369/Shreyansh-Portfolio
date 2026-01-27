@@ -1,42 +1,51 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
-interface VideoBackgroundProps {
-  videoSrc: string;
+interface BackgroundVideoProps {
+  videoSrc?: string;
 }
 
-const VideoBackground = ({ videoSrc }: VideoBackgroundProps) => {
+const BackgroundVideo = ({
+  videoSrc = "/background.mp4",
+}: BackgroundVideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVisible, setIsVisible] = useState(true);
+  const [enabled, setEnabled] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check if mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
+    // Detect mobile once
+    const mobile =
+      window.matchMedia("(max-width: 767px)").matches ||
+      "ontouchstart" in window;
+    setIsMobile(mobile);
 
-    // Pause video when tab is inactive
-    const handleVisibilityChange = () => {
+    // Visibility handling (safe autoplay)
+    const handleVisibility = async () => {
+      if (!videoRef.current) return;
+
       if (document.hidden) {
-        videoRef.current?.pause();
+        videoRef.current.pause();
       } else {
-        videoRef.current?.play();
+        try {
+          await videoRef.current.play();
+        } catch {
+          // Autoplay blocked → disable video gracefully
+          setEnabled(false);
+        }
       }
     };
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    document.addEventListener("visibilitychange", handleVisibility);
+    handleVisibility();
 
     return () => {
-      window.removeEventListener('resize', checkMobile);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, []);
 
-  // Disable video on mobile for battery/data
-  if (isMobile) {
+  // Disable video on mobile or autoplay failure
+  if (isMobile || !enabled) {
     return (
-      <div 
+      <div
         className="fixed inset-0 -z-10 bg-background"
         aria-hidden="true"
       />
@@ -45,23 +54,26 @@ const VideoBackground = ({ videoSrc }: VideoBackgroundProps) => {
 
   return (
     <>
-      {isVisible && (
-        <video
-          ref={videoRef}
-          className="video-bg will-change-transform"
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-hidden="true"
-          onError={() => setIsVisible(false)}
-        >
-          <source src={videoSrc} type="video/mp4" />
-        </video>
-      )}
-      <div className="video-overlay" aria-hidden="true" />
+      <video
+        ref={videoRef}
+        className="fixed inset-0 -z-10 h-full w-full object-cover"
+        src={videoSrc}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        onError={() => setEnabled(false)}
+      />
+
+      {/* Overlay for contrast */}
+      <div
+        className="fixed inset-0 -z-10 bg-black/60"
+        aria-hidden="true"
+      />
     </>
   );
 };
 
-export default VideoBackground;
+export default BackgroundVideo;

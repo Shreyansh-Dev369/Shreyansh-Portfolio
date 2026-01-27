@@ -229,83 +229,88 @@ const Contact: React.FC = () => {
                 className="skill-card space-y-5"
                 noValidate
               >
-               {["name", "email", "message"].map((field) => {
-  const isTextarea = field === "message";
-  const value = formData[field as keyof typeof formData];
+                {["name", "email", "message"].map((field) => {
+                  const isTextarea = field === "message";
+                  const value = formData[field as keyof typeof formData];
 
-  return (
-    <div key={field} className="relative group">
-      <label
-        htmlFor={field}
-        className="mb-2 block text-sm font-medium text-foreground"
-      >
-        {field.charAt(0).toUpperCase() + field.slice(1)}
-      </label>
+                  return (
+                    <div key={field} className="relative group">
+                      <label
+                        htmlFor={field}
+                        className="mb-2 block text-sm font-medium text-foreground"
+                      >
+                        {field.charAt(0).toUpperCase() + field.slice(1)}
+                      </label>
 
-      {isTextarea ? (
-        <textarea
-          id={field}
-          rows={4}
-          value={value}
-          onChange={handleChange}
-          placeholder={`Your ${field}...`}
-          className={`w-full resize-none rounded-lg border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-300 focus:outline-none focus:ring-2 ${
-            errors[field]
-              ? "border-destructive focus:ring-destructive/20"
-              : "border-border focus:ring-primary/20"
-          } ${
-            value
-              ? "caret-transparent placeholder-opacity-30"
-              : "caret-primary placeholder-opacity-100"
-          }`}
-        />
-      ) : (
-        <input
-          id={field}
-          type={field === "email" ? "email" : "text"}
-          value={value}
-          onChange={handleChange}
-          placeholder={`Your ${field}`}
-          className={`w-full rounded-lg border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-300 focus:outline-none focus:ring-2 ${
-            errors[field]
-              ? "border-destructive focus:ring-destructive/20"
-              : "border-border focus:ring-primary/20"
-          } ${
-            value
-              ? "caret-transparent placeholder-opacity-30"
-              : "caret-primary placeholder-opacity-100"
-          }`}
-        />
-      )}
+                      {isTextarea ? (
+                        <textarea
+                          id={field}
+                          rows={4}
+                          value={value}
+                          onChange={handleChange}
+                          placeholder={`Your ${field}...`}
+                          className={`w-full resize-none rounded-lg border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-300 focus:outline-none focus:ring-2 ${
+                            errors[field]
+                              ? "border-destructive focus:ring-destructive/20"
+                              : "border-border focus:ring-primary/20"
+                          } ${
+                            value
+                              ? "caret-transparent placeholder-opacity-30"
+                              : "caret-primary placeholder-opacity-100"
+                          }`}
+                        />
+                      ) : (
+                        <input
+                          id={field}
+                          type={field === "email" ? "email" : "text"}
+                          value={value}
+                          onChange={handleChange}
+                          placeholder={`Your ${field}`}
+                          className={`w-full rounded-lg border bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all duration-300 focus:outline-none focus:ring-2 ${
+                            errors[field]
+                              ? "border-destructive focus:ring-destructive/20"
+                              : "border-border focus:ring-primary/20"
+                          } ${
+                            value
+                              ? "caret-transparent placeholder-opacity-30"
+                              : "caret-primary placeholder-opacity-100"
+                          }`}
+                        />
+                      )}
 
-      {errors[field] && (
-        <p className="mt-1 text-sm text-destructive">{errors[field]}</p>
-      )}
-    </div>
-  );
-})}
+                      {errors[field] && (
+                        <p className="mt-1 text-sm text-destructive">{errors[field]}</p>
+                      )}
+                    </div>
+                  );
+                })}
 
-
+                {/* Animated Cyber Button */}
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="btn-primary w-full disabled:opacity-70"
-                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                  className="relative w-full overflow-hidden rounded-lg bg-gradient-to-r from-primary to-accent px-6 py-3 font-bold text-foreground uppercase tracking-wider text-sm shadow-lg transition-transform duration-300"
+                  whileHover={{ scale: isSubmitting ? 1 : 1.03 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.97 }}
                 >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin" /> Sending...
-                    </>
-                  ) : isSuccess ? (
-                    <>
-                      <CheckCircle className="h-4 w-4" /> Message Sent!
-                    </>
-                  ) : (
-                    <>
-                      <Send className="h-4 w-4" /> Send Message
-                    </>
-                  )}
+                  {/* Glow overlay */}
+                  <span className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/30 blur-xl opacity-70 transition-all duration-500 group-hover:opacity-100"></span>
+
+                  <span className="relative flex items-center justify-center gap-2">
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" /> Sending...
+                      </>
+                    ) : isSuccess ? (
+                      <>
+                        <CheckCircle className="h-4 w-4" /> Message Sent!
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4" /> Send Message
+                      </>
+                    )}
+                  </span>
                 </motion.button>
               </form>
             </motion.div>

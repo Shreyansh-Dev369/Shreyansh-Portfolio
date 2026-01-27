@@ -4,57 +4,82 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Basic SEO -->
-    <title>Shreyansh's Portfolio</title>
+    <!-- BASIC SEO -->
+    <title>Shreyansh Tripathi | Frontend Developer</title>
     <meta
       name="description"
       content="Personal portfolio of Shreyansh Tripathi, frontend developer specializing in React and modern web technologies."
     />
     <meta name="author" content="Shreyansh Tripathi" />
 
-    <!-- Canonical URL -->
-    <link
-      rel="canonical"
-      href="https://shreyansh-dev369.github.io/Portfolio-Crafted/"
-    />
+    <!-- CANONICAL -->
+    <link rel="canonical" href="https://your-vercel-domain.vercel.app/" />
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Shreyansh's Portfolio" />
-    <meta
-      property="og:description"
-      content="Frontend developer portfolio showcasing projects, skills, and experience."
-    />
-    <meta
-      property="og:url"
-      content="https://shreyansh-dev369.github.io/Portfolio-Crafted/"
-    />
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="Shreyansh Tripathi | Portfolio" />
+    <meta property="og:description" content="Frontend developer portfolio" />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:image"
-      content="https://shreyansh-dev369.github.io/Portfolio-Crafted/og-image.png"
-    />
+    <meta property="og:url" content="https://your-vercel-domain.vercel.app/" />
+    <meta property="og:image" content="og-image.png" />
 
-    <!-- Twitter Card -->
+    <!-- TWITTER -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Shreyansh Tripathi | Frontend Developer" />
-    <meta
-      name="twitter:description"
-      content="Frontend developer portfolio built with React and modern UI."
-    />
-    <meta
-      name="twitter:image"
-      content="https://shreyansh-dev369.github.io/Portfolio-Crafted/og-image.png"
-    />
 
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" />
+    <!-- FAVICON -->
+    <link rel="icon" href="favicon.ico" />
 
-    <!-- Sitemap (optional, safe) -->
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <!-- THEME COLOR -->
+    <meta name="theme-color" content="#ff2e2e" />
+
+    <!-- PRELOAD ICONS (USED IN BUTTONS) -->
+    <link rel="preload" as="image" href="icons/arrow-down.png" />
+    <link rel="preload" as="image" href="icons/doc.png" />
+
+    <!-- LUCIDE (OPTIONAL) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
   </head>
 
-  <body>
+  <body class="bg-black text-white overflow-x-hidden">
+    <!-- PRELOADER -->
+    <div
+      id="preloader"
+      style="
+        position: fixed;
+        inset: 0;
+        background: #0b0b0e;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      "
+    >
+      <span
+        style="
+          color: #ff2e2e;
+          font-size: 1.1rem;
+          letter-spacing: 0.2em;
+        "
+      >
+        LOADING
+      </span>
+    </div>
+
+    <!-- REACT ROOT -->
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- PRELOADER SCRIPT -->
+    <script>
+      window.addEventListener("load", () => {
+        const preloader = document.getElementById("preloader");
+        if (preloader) {
+          preloader.style.opacity = "0";
+          setTimeout(() => preloader.remove(), 500);
+        }
+      });
+    </script>
+
+    <!-- MAIN -->
+    <script type="module" src="src/main.tsx"></script>
   </body>
 </html>

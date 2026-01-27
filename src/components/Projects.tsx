@@ -91,7 +91,7 @@ const Projects = () => {
 
   return (
     <section ref={sectionRef} id="projects" className="relative overflow-hidden py-24 sm:py-32">
-      {/* Background */}
+      {/* Background orbs */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute right-0 top-1/4 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-accent/5 blur-3xl" />
@@ -172,7 +172,11 @@ const Projects = () => {
                   <motion.div
                     key={`${project.id}-${currentIndex}`}
                     layout
-                    initial={{ opacity: 0, scale: 0.8, x: idx === 0 ? -100 : idx === 2 ? 100 : 0 }}
+                    initial={{
+                      opacity: 0,
+                      scale: 0.8,
+                      x: idx === 0 ? -100 : idx === 2 ? 100 : 0,
+                    }}
                     animate={{
                       opacity: isCenter ? 1 : 0.6,
                       scale: isCenter ? 1 : 0.85,
@@ -206,9 +210,7 @@ const Projects = () => {
                       <h3 className="mb-2 font-display text-xl font-bold text-foreground">
                         {project.title}
                       </h3>
-                      <p className="mb-4 text-sm text-muted-foreground">
-                        {project.problem}
-                      </p>
+                      <p className="mb-4 text-sm text-muted-foreground">{project.problem}</p>
 
                       {/* Tech stack */}
                       <div className="mb-6 flex flex-wrap gap-2">
@@ -223,20 +225,24 @@ const Projects = () => {
                       <div className="flex gap-3">
                         <motion.a
                           href={project.liveUrl}
-                          className="btn-primary flex-1 justify-center text-sm"
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="cyber-btn cyber-btn-primary flex-1 justify-center text-sm gap-2"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.96 }}
                         >
                           <ExternalLink className="h-4 w-4" />
                           Live Demo
                         </motion.a>
                         <motion.a
                           href={project.githubUrl}
-                          className="btn-secondary flex-1 justify-center text-sm"
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="cyber-btn cyber-btn-outline flex-1 justify-center text-sm gap-2"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.96 }}
                         >
-                          <Github className="h-4 w-4" />
+                          <Github className="h-4 w-4 text-primary drop-shadow-[0_0_6px_rgba(255,46,46,0.8)]" />
                           GitHub
                         </motion.a>
                       </div>
