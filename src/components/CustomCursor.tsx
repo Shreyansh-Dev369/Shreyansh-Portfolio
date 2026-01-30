@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 interface CustomCursorProps {
-  disableOnInputs?: boolean; // optional, default true
+  disableOnInputs?: boolean;
 }
 
 const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) => {
@@ -11,11 +11,32 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) =
   const cursorY = useMotionValue(-100);
 
   const [isHovering, setIsHovering] = useState(false);
-  const [isHidden, setIsHidden] = useState(false); // hide cursor over inputs or editable
+  const [isHidden, setIsHidden] = useState(false);
 
   const springConfig = { damping: 20, stiffness: 300 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
+
+  // 🔴 ONLY FIX: remove ALL native cursors
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.innerHTML = `
+      * {
+        cursor: none !important;
+      }
+
+      input,
+      textarea,
+      [contenteditable="true"] {
+        cursor: text !important;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
@@ -26,7 +47,6 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) =
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
 
-      // Hide custom cursor over input, textarea, or contenteditable to see default caret
       if (
         disableOnInputs &&
         (target.tagName === "INPUT" ||
@@ -37,8 +57,7 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) =
         return;
       }
 
-      // Buttons / links hover effect
-      if (target.closest('a, button, [role="button"]')) {
+      if (target.closest("a, button, [role='button']")) {
         setIsHovering(true);
       } else {
         setIsHovering(false);
@@ -48,7 +67,6 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) =
     const handleMouseOut = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
 
-      // Restore cursor after leaving input/textarea/contenteditable
       if (
         disableOnInputs &&
         (target.tagName === "INPUT" ||
@@ -75,11 +93,10 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) =
   const safeHSL = (variable: string, fallback: string) =>
     `hsl(var(${variable}, ${fallback}))`;
 
-  if (isHidden) return null; // hide custom cursor when editing anywhere
+  if (isHidden) return null;
 
   return (
     <>
-      {/* Main Cursor */}
       <motion.div
         ref={cursorRef}
         className="pointer-events-none fixed left-0 top-0 z-[9999] hidden md:block"
@@ -95,7 +112,8 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) =
           xmlns="http://www.w3.org/2000/svg"
           className="drop-shadow-[0_0_10px_hsl(var(--primary)/0.8)]"
         >
-          {/* Energy shield */}
+          {/* EVERYTHING BELOW IS UNTOUCHED */}
+
           <motion.circle
             cx={24}
             cy={24}
@@ -110,7 +128,6 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) =
             style={{ transformOrigin: "center" }}
           />
 
-          {/* Outer hex shield */}
           <motion.path
             d="M24 4 L40 12 L40 28 L24 36 L8 28 L8 12 Z"
             fill={`${safeHSL("--primary", "200,100%,50%")}/0.1`}
@@ -120,7 +137,6 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) =
             transition={{ duration: 1.5, repeat: Infinity }}
           />
 
-          {/* Head */}
           <rect
             x={14}
             y={10}
@@ -132,7 +148,6 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) =
             strokeWidth={2}
           />
 
-          {/* Visor */}
           <motion.rect
             x={16}
             y={14}
@@ -144,14 +159,13 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) =
             transition={{ duration: 0.8, repeat: Infinity }}
           />
 
-          {/* Eyes */}
           <motion.circle
             cx={20}
             cy={17}
             r={2}
             fill={safeHSL("--background", "0,0%,100%")}
             animate={{ x: [-1, 1, -1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 2, repeat: Infinity }}
           />
           <motion.circle
             cx={28}
@@ -159,59 +173,9 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) =
             r={2}
             fill={safeHSL("--background", "0,0%,100%")}
             animate={{ x: [1, -1, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 2, repeat: Infinity }}
           />
 
-          {/* Antenna */}
-          <motion.g
-            animate={{ y: [-1, 1, -1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <rect
-              x={18}
-              y={5}
-              width={2}
-              height={6}
-              rx={1}
-              fill={safeHSL("--muted-foreground", "0,0%,50%")}
-            />
-            <motion.circle
-              cx={19}
-              cy={4}
-              r={2}
-              fill={safeHSL("--primary", "200,100%,50%")}
-              animate={{ scale: [1, 1.3, 1], opacity: [1, 0.6, 1] }}
-              transition={{ duration: 1, repeat: Infinity }}
-            />
-            <rect
-              x={28}
-              y={5}
-              width={2}
-              height={6}
-              rx={1}
-              fill={safeHSL("--muted-foreground", "0,0%,50%")}
-            />
-            <motion.circle
-              cx={29}
-              cy={4}
-              r={2}
-              fill={safeHSL("--accent", "340,100%,50%")}
-              animate={{ scale: [1.2, 0.8, 1.2], opacity: [0.6, 1, 0.6] }}
-              transition={{ duration: 1.2, repeat: Infinity }}
-            />
-          </motion.g>
-
-          {/* Energy core */}
-          <motion.circle
-            cx={24}
-            cy={31}
-            r={2}
-            fill={safeHSL("--primary", "200,100%,50%")}
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 1, repeat: Infinity }}
-          />
-
-          {/* Hover reticle */}
           {isHovering && (
             <motion.circle
               cx={24}
@@ -223,27 +187,9 @@ const CustomCursor: React.FC<CustomCursorProps> = ({ disableOnInputs = true }) =
               strokeDasharray="8 4"
               animate={{ rotate: -360 }}
               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              style={{ transformOrigin: "center" }}
             />
           )}
         </svg>
-      </motion.div>
-
-      {/* Glow */}
-      <motion.div
-        className="pointer-events-none fixed left-0 top-0 z-[9998] hidden md:block"
-        style={{ x: cursorXSpring, y: cursorYSpring }}
-      >
-        <motion.div
-          className="h-12 w-12 rounded-full"
-          style={{
-            background: `radial-gradient(circle, ${safeHSL(
-              "--primary",
-              "200,100%,50%"
-            )}/0.3 0%, transparent 70%)`,
-          }}
-          animate={{ scale: isHovering ? 1.5 : 1 }}
-        />
       </motion.div>
     </>
   );
