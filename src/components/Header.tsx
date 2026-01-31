@@ -24,8 +24,8 @@ const Header = () => {
     const rect = e.currentTarget.getBoundingClientRect();
     const dx = (e.clientX - rect.left) / rect.width - 0.5;
     const dy = (e.clientY - rect.top) / rect.height - 0.5;
-    x.set(dx * 10);
-    y.set(dy * -10);
+    x.set(dx * 8);
+    y.set(dy * -8);
   };
 
   /* ================= SCROLL ACTIVE ================= */
@@ -49,13 +49,13 @@ const Header = () => {
 
   return (
     <motion.header
-      animate={{ height: isScrolled ? 64 : 88 }}
-      transition={{ duration: 0.35 }}
+      animate={{ height: isScrolled ? 52 : 64 }}
+      transition={{ duration: 0.3 }}
       className="
         fixed top-0 left-0 right-0 z-50
         bg-background/70 backdrop-blur-xl
         border-b border-border/40
-        px-8
+        px-4 md:px-6
         flex items-center
       "
     >
@@ -68,16 +68,16 @@ const Header = () => {
           x.set(0);
           y.set(0);
         }}
-        animate={{ scale: isScrolled ? 0.9 : 1 }}
-        transition={{ duration: 0.3 }}
+        animate={{ scale: isScrolled ? 0.85 : 1 }}
+        transition={{ duration: 0.25 }}
       >
         {/* GLOWING CIRCLE */}
         <motion.div
           animate={{
             boxShadow: [
-              "0 0 20px rgba(255,46,46,0.4)",
-              "0 0 45px rgba(255,46,46,0.9)",
-              "0 0 20px rgba(255,46,46,0.4)",
+              "0 0 8px rgba(255,46,46,0.4)",
+              "0 0 18px rgba(255,46,46,0.9)",
+              "0 0 8px rgba(255,46,46,0.4)",
             ],
           }}
           transition={{
@@ -89,21 +89,21 @@ const Header = () => {
             flex items-center justify-center
             rounded-full
             border border-red-500/60
-            w-20 h-20 md:w-24 md:h-24
+            w-10 h-10 md:w-11 md:h-11
           "
         >
-          {/* LOGO IMAGE */}
+          {/* LOGO IMAGE (BIGGER SKULL) */}
           <motion.img
             src="shreyansh.png"
             alt="Logo"
             draggable={false}
             style={{ rotateX, rotateY }}
-            animate={{ y: [0, -8, 0] }}
+            animate={{ y: [0, -4, 0] }}
             transition={{
               y: { duration: 3.5, repeat: Infinity, ease: "easeInOut" },
             }}
             className="
-              w-14 h-14 md:w-16 md:h-16
+              w-8 h-8 md:w-9 md:h-9
               object-contain
               select-none
               pointer-events-none
@@ -115,7 +115,7 @@ const Header = () => {
 
       {/* ================= NAV ================= */}
       <nav className="ml-auto flex items-center">
-        <ul className="flex gap-10">
+        <ul className="flex gap-6 md:gap-8">
           {navLinks.map((link, i) => (
             <motion.li
               key={link.id}
