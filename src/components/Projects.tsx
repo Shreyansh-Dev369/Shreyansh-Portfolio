@@ -2,7 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ExternalLink, Github, ChevronLeft, ChevronRight, Folder } from "lucide-react";
+import {
+  ExternalLink,
+  Github,
+  ChevronLeft,
+  ChevronRight,
+  Folder,
+} from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,8 +27,10 @@ const projects: Project[] = [
   {
     id: 1,
     title: "Modern Portfolio",
-    description: "Modern animated portfolio website with high performance and smooth UI",
-    problem: "Built a responsive, SEO-optimized portfolio with engaging animations and recruiter-friendly features",
+    description:
+      "Modern animated portfolio website with high performance and smooth UI",
+    problem:
+      "Built a responsive, SEO-optimized portfolio with engaging animations and recruiter-friendly features",
     techStack: [
       "React",
       "TypeScript",
@@ -30,7 +38,7 @@ const projects: Project[] = [
       "Framer Motion",
       "GSAP",
       "Shadcn UI",
-      "Vite"
+      "Vite",
     ],
     liveUrl: "https://shreyansh-dev.vercel.app/",
     githubUrl: "https://github.com/Shreyansh-Dev369/Shreyansh-Portfolio",
@@ -38,8 +46,10 @@ const projects: Project[] = [
   {
     id: 2,
     title: "AgeIS-X",
-    description: "AI-powered fraud and phishing detection platform with real-time URL risk analysis",
-    problem: "Detects malicious and phishing URLs in real time to prevent fraud and security breaches",
+    description:
+      "AI-powered fraud and phishing detection platform with real-time URL risk analysis",
+    problem:
+      "Detects malicious and phishing URLs in real time to prevent fraud and security breaches",
     techStack: [
       "Next.js",
       "Python",
@@ -48,7 +58,7 @@ const projects: Project[] = [
       "TF-IDF",
       "PostgreSQL",
       "Redis",
-      "JWT"
+      "JWT",
     ],
     liveUrl: "#",
     githubUrl: "https://github.com/Shreyansh-Dev369/AgeIS-X",
@@ -56,8 +66,10 @@ const projects: Project[] = [
   {
     id: 3,
     title: "YOJUN",
-    description: "All-in-one social media platform with videos, blogs, and real-time chat",
-    problem: "Built a scalable platform enabling content creation, real-time communication, and high performance",
+    description:
+      "All-in-one social media platform with videos, blogs, and real-time chat",
+    problem:
+      "Built a scalable platform enabling content creation, real-time communication, and high performance",
     techStack: [
       "Next.js",
       "Django REST Framework",
@@ -65,7 +77,7 @@ const projects: Project[] = [
       "Redis",
       "WebSockets",
       "Docker",
-      "CI/CD"
+      "CI/CD",
     ],
     liveUrl: "#",
     githubUrl: "#",
@@ -115,15 +127,17 @@ const Projects = () => {
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="relative overflow-hidden py-24 sm:py-32">
-      {/* Background orbs */}
+    <section
+      ref={sectionRef}
+      id="projects"
+      className="relative overflow-hidden py-24 sm:py-32"
+    >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute right-0 top-1/4 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-accent/5 blur-3xl" />
       </div>
 
       <div className="container mx-auto px-6">
-        {/* Section header */}
         <div className="projects-header mb-16 text-center">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
@@ -153,9 +167,7 @@ const Projects = () => {
           </motion.p>
         </div>
 
-        {/* Projects carousel */}
         <div className="relative mx-auto max-w-6xl">
-          {/* Navigation buttons */}
           <div className="mb-8 flex items-center justify-center gap-4">
             <motion.button
               onClick={prevProject}
@@ -165,6 +177,7 @@ const Projects = () => {
             >
               <ChevronLeft className="h-5 w-5" />
             </motion.button>
+
             <div className="flex items-center gap-2">
               {projects.map((_, index) => (
                 <button
@@ -178,6 +191,7 @@ const Projects = () => {
                 />
               ))}
             </div>
+
             <motion.button
               onClick={nextProject}
               className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-foreground transition-all hover:border-primary hover:text-primary hover:shadow-lg"
@@ -188,7 +202,6 @@ const Projects = () => {
             </motion.button>
           </div>
 
-          {/* Cards container */}
           <div className="relative flex items-center justify-center gap-6 px-4">
             <AnimatePresence mode="popLayout">
               {getVisibleProjects().map((project, idx) => {
@@ -214,7 +227,6 @@ const Projects = () => {
                       isCenter ? "" : "pointer-events-none hidden md:block"
                     }`}
                   >
-                    {/* Project image placeholder */}
                     <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-gradient-to-br from-primary/20 via-primary/10 to-accent/20">
                       <div className="absolute inset-0 flex items-center justify-center">
                         <motion.div
@@ -224,20 +236,20 @@ const Projects = () => {
                           <Folder className="h-16 w-16 text-primary/40" />
                         </motion.div>
                       </div>
-                      {/* Project number badge */}
+
                       <div className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-xl bg-card/90 font-display text-lg font-bold text-primary backdrop-blur-sm">
                         {project.id}
                       </div>
                     </div>
 
-                    {/* Content */}
                     <div className="p-6">
                       <h3 className="mb-2 font-display text-xl font-bold text-foreground">
                         {project.title}
                       </h3>
-                      <p className="mb-4 text-sm text-muted-foreground">{project.problem}</p>
+                      <p className="mb-4 text-sm text-muted-foreground">
+                        {project.problem}
+                      </p>
 
-                      {/* Tech stack */}
                       <div className="mb-6 flex flex-wrap gap-2">
                         {project.techStack.map((tech) => (
                           <span key={tech} className="tech-tag">
@@ -246,7 +258,6 @@ const Projects = () => {
                         ))}
                       </div>
 
-                      {/* Action buttons */}
                       <div className="flex gap-3">
                         <motion.a
                           href={project.liveUrl}
