@@ -60,7 +60,7 @@ const projects: Project[] = [
       "Redis",
       "JWT",
     ],
-    liveUrl: "#https://ageis-x.vercel.app/",
+    liveUrl: "https://ageis-x.vercel.app/",
     githubUrl: "https://github.com/Shreyansh-Dev369/AgeIS-X",
   },
   {
