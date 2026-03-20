@@ -653,7 +653,9 @@ const SkillsTimeline = () => {
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
+                    <div className="flex justify-center items-center">
                     <Star className="h-4 w-4" />
+                    </div>
                     {showExplosion ? "Liftoff Complete!" : "All Systems Operational"}
                   </motion.div>
                 </motion.div>
