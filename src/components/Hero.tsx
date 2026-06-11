@@ -159,7 +159,7 @@ const Hero = () => {
 
           <motion.a
             variants={itemVariants}
-            href="/myresume.pdf"
+            href="myresume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="cyber-btn cyber-btn-outline flex items-center gap-2"
