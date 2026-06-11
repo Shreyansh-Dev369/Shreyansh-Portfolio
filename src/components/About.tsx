@@ -113,25 +113,24 @@ const About = () => {
               transition={{ delay: 0.3, duration: 0.5 }}
               className="space-y-6"
             >
-              <p className="text-lg leading-relaxed text-muted-foreground">
-                I'm a <span className="font-medium text-foreground">Computer Science undergraduate</span> passionate
-                about building software that makes a difference. My focus is on
-                creating systems that are{" "}
-                <span className="font-medium text-primary">reliable</span>,{" "}
-                <span className="font-medium text-primary">scalable</span>, and{" "}
-                <span className="font-medium text-primary">performant</span>.
-              </p>
-              <p className="text-lg leading-relaxed text-muted-foreground">
-                I believe in clean architecture and maintainable code. Every
-                project I work on reflects my commitment to end-to-end system
-                thinking—from data structures to user interfaces to the overall
-                user experience.
-              </p>
-              <p className="text-lg leading-relaxed text-muted-foreground">
-                When I'm not coding, I'm exploring new technologies, solving
-                algorithmic challenges, or contributing to open-source projects
-                that align with my interests.
-              </p>
+<p className="text-lg leading-relaxed text-muted-foreground">
+  I'm a <span className="font-medium text-foreground">Computer Science undergraduate</span> passionate
+  about Artificial Intelligence and Machine Learning. My focus is on
+  building intelligent systems that are{" "}
+  <span className="font-medium text-primary">scalable</span>,{" "}
+  <span className="font-medium text-primary">data-driven</span>, and{" "}
+  <span className="font-medium text-primary">impactful</span>.
+</p>
+
+<p className="text-lg leading-relaxed text-muted-foreground">
+  I enjoy developing AI-powered products that combine machine learning,
+  data analytics, and modern software engineering to solve real-world problems.
+</p>
+
+<p className="text-lg leading-relaxed text-muted-foreground">
+  When I'm not building projects, I'm exploring AI technologies, studying
+  machine learning concepts, and solving algorithmic challenges.
+</p>
 
               {/* Stats */}
               <div ref={statsRef} className="flex gap-8 pt-4">

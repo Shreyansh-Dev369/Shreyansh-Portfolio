@@ -129,7 +129,7 @@ const Hero = () => {
           ref={subtitleRef}
           className="mb-6 font-display text-xl font-medium text-muted-foreground opacity-0 sm:text-2xl"
         >
-          Aspiring Software Development Engineer
+          Aspiring AI/ML Engineer
         </p>
 
         {/* DESCRIPTION */}
@@ -137,8 +137,7 @@ const Hero = () => {
           ref={descRef}
           className="mx-auto mb-10 max-w-2xl text-base leading-relaxed text-muted-foreground opacity-0 sm:text-lg"
         >
-          I build scalable, performant, and maintainable web applications,
-          focusing on clean architecture and real-world impact.
+          I build AI-powered products and intelligent systems, combining machine learning, data-driven insights, and scalable software engineering to solve real-world problems.
         </p>
 
         {/* CTA BUTTONS */}
